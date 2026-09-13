@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tibin Thomas — Production Support &amp; Cloud Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #10151a;
+    --panel: #171e25;
+    --panel-2: #1c242c;
+    --line: #2a333c;
+    --line-soft: #232b33;
+    --text: #e7ecef;
+    --muted: #8b98a4;
+    --muted-2: #5f6c78;
+    --accent: #3ddc97;
+    --accent-dim: #2a8a63;
+    --amber: #e0a458;
+    --radius: 3px;
+    --maxw: 920px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', -apple-system, sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  .dot{
+    display:inline-block; width:8px; height:8px; border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 3px rgba(61,220,151,0.15);
+    flex-shrink:0;
+  }
+  nav{
+    position:sticky; top:0; z-index:20;
+    background:rgba(16,21,26,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--maxw); margin:0 auto; padding:14px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-name{font-weight:600; font-size:15px; letter-spacing:0.2px;}
+  .nav-links{display:flex; gap:22px; font-size:14px; color:var(--muted);}
+  .nav-links a{text-decoration:none; transition:color .15s;}
+  .nav-links a:hover{color:var(--text);}
+  @media (max-width:640px){ .nav-links{display:none;} }
+  header.hero{
+    padding:64px 0 48px;
+    border-bottom:1px solid var(--line);
+  }
+  .status-line{
+    display:flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px; color:var(--accent);
+    margin-bottom:22px;
+  }
+  .hero h1{
+    font-size:42px; font-weight:600; line-height:1.15; margin:0 0 10px;
+    letter-spacing:-0.5px;
+  }
+  .hero .role{
+    font-size:17px; color:var(--muted); margin:0 0 22px; max-width:60ch;
+  }
+  .hero p.summary{
+    color:var(--text); max-width:62ch; margin:0 0 28px; font-size:15.5px;
+  }
+  .contact-row{
+    display:flex; flex-wrap:wrap; gap:10px 22px;
+    font-size:14px; color:var(--muted);
+  }
+  .contact-row a{text-decoration:none; border-bottom:1px solid var(--line-soft); padding-bottom:1px;}
+  .contact-row a:hover{color:var(--accent); border-color:var(--accent);}
+  .stat-row{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin-top:36px;
+  }
+  .stat{background:var(--panel); padding:16px 18px;}
+  .stat .num{font-family:'IBM Plex Mono',monospace; font-size:20px; color:var(--accent); display:block; margin-bottom:4px;}
+  .stat .label{font-size:12.5px; color:var(--muted);}
+  @media (max-width:640px){ .stat-row{grid-template-columns:1fr;} .hero h1{font-size:32px;} }
+  section{padding:56px 0;}
+  section + section{border-top:1px solid var(--line);}
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:32px; gap:20px; flex-wrap:wrap;
+  }
+  .section-head h2{font-size:22px; font-weight:600; margin:0;}
+  .section-head .note{font-size:13px; color:var(--muted-2); font-family:'IBM Plex Mono',monospace;}
+  .tl{position:relative; padding-left:26px;}
+  .tl::before{
+    content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px;
+    background:var(--line);
+  }
+  .tl-item{position:relative; padding-bottom:38px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:''; position:absolute; left:-26px; top:5px;
+    width:11px; height:11px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--accent);
+  }
+  .tl-item .when{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--muted-2); margin-bottom:6px;}
+  .tl-item h3{margin:0 0 2px; font-size:17px; font-weight:600;}
+  .tl-item .org{color:var(--muted); font-size:14px; margin-bottom:12px;}
+  .tl-item ul{margin:0; padding-left:18px; color:var(--text); font-size:14.5px;}
+  .tl-item li{margin-bottom:7px;}
+  .tl-item li:last-child{margin-bottom:0;}
+  .badge{
+    display:inline-block; margin-top:12px; font-family:'IBM Plex Mono',monospace;
+    font-size:12px; color:var(--amber); border:1px solid rgba(224,164,88,0.35);
+    padding:3px 8px; border-radius:var(--radius); background:rgba(224,164,88,0.06);
+  }
+  .incident{
+    border:1px solid var(--line); border-radius:var(--radius);
+    background:var(--panel); margin-bottom:16px; overflow:hidden;
+  }
+  .incident:last-child{margin-bottom:0;}
+  .incident-head{
+    padding:16px 20px; border-bottom:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+  }
+  .incident-head h3{margin:0; font-size:15.5px; font-weight:600;}
+  .sev{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px;
+    padding:2px 8px; border-radius:var(--radius);
+    background:rgba(61,220,151,0.08); color:var(--accent); border:1px solid rgba(61,220,151,0.25);
+  }
+  .incident-body{padding:18px 20px; display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  @media (max-width:700px){ .incident-body{grid-template-columns:1fr; gap:14px;} }
+  .incident-body .field .k{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted-2);
+    text-transform:uppercase; letter-spacing:0.6px; margin-bottom:6px;
+  }
+  .incident-body .field .v{font-size:14px; color:var(--text);}
+  .skill-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  @media (max-width:640px){ .skill-grid{grid-template-columns:1fr;} }
+  .skill-cat{background:var(--panel); padding:20px 22px;}
+  .skill-cat h4{margin:0 0 12px; font-size:13px; color:var(--muted); text-transform:none; font-weight:600;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--text);
+    background:var(--panel-2); border:1px solid var(--line); padding:5px 10px; border-radius:var(--radius);
+  }
+  .cert-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
+  @media (max-width:640px){ .cert-grid{grid-template-columns:1fr;} }
+  .cert{
+    border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px;
+    background:var(--panel);
+  }
+  .cert h4{margin:0 0 4px; font-size:14.5px; font-weight:600;}
+  .cert .issuer{font-size:13px; color:var(--muted);}
+  .cert .date{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--muted-2); margin-top:8px;}
+  .edu{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;}
+  .edu h3{margin:0; font-size:16px; font-weight:600;}
+  .edu .org{color:var(--muted); font-size:14px;}
+  .edu .when{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--muted-2);}
+  footer{padding:40px 0 60px; }
+  footer .foot-inner{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    font-size:13px; color:var(--muted-2);
+  }
+  footer a{text-decoration:none; color:var(--muted);}
+  footer a:hover{color:var(--accent);}
+  footer .links{display:flex; gap:18px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-name">Tibin Thomas</div>
+    <div class="nav-links">
+      <a href="#experience">Experience</a>
+      <a href="#incidents">Incidents</a>
+      <a href="#skills">Skills</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <div class="status-line"><span class="dot"></span>OPEN TO DEVOPS &amp; CLOUD ENGINEERING ROLES</div>
+  <h1>Production support engineer moving into DevOps &amp; cloud infrastructure.</h1>
+  <p class="role">Assistant Systems Engineer, L2 Product Support at Tata Consultancy Services — supporting Waitrose's Digital Experience platform.</p>
+  <p class="summary">Two years of keeping a live commerce platform running: watching it, diagnosing it when it breaks, and shipping the fixes through Git and CI to QA and production. Looking to move further upstream — into the pipelines and infrastructure that prevent the incidents, not just respond to them.</p>
+  <div class="contact-row">
+    <a href="mailto:tibinthomas1304@gmail.com">tibinthomas1304@gmail.com</a>
+    <a href="tel:+918138057448">+91 81380 57448</a>
+    <a href="https://github.com/tibinthomas13" target="_blank" rel="noopener">github.com/tibinthomas13</a>
+    <a href="https://www.linkedin.com/in/tibin-thomas-003208234/" target="_blank" rel="noopener">linkedin.com/in/tibinthomas-003208234</a>
+    <span>Idukki, Kerala, India</span>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><span class="num">2+ yrs</span><span class="label">Production support &amp; incident response</span></div>
+    <div class="stat"><span class="num">L2</span><span class="label">Application support, Waitrose Digital Experience</span></div>
+    <div class="stat"><span class="num">2025</span><span class="label">Star Team Award — high-incident sales period</span></div>
+  </div>
+</header>
+<br>
+<section id="experience" class="wrap">
+  <div class="section-head">
+    <h2>Experience</h2>
+    <span class="note">reverse chronological</span>
+  </div>
+  <div class="tl">
+
+    <div class="tl-item">
+      <div class="when">JUN 2024 — PRESENT</div>
+      <h3>Assistant Systems Engineer — L2 Product Support</h3>
+      <div class="org">Tata Consultancy Services · Chennai, India · client: Waitrose, Digital Experience team</div>
+      <ul>
+        <li>Progressed from Graduate Trainee to Programmer to Assistant Systems Engineer while providing L2 application support for a live commerce platform.</li>
+        <li>Handled a major site breakdown and a major account-hacking incident on the supported website, working through diagnosis to resolution.</li>
+        <li>Managed code changes through Git — including vanity URL requests, file creation and edits, and merge requests — and deployed releases through QA before promoting to production.</li>
+        <li>Used SQL and cloud data services (DynamoDB, Athena) for reporting and root-cause analysis; kept incident documentation accurate for SLA compliance during high-volume periods.</li>
+        <li>Monitored system health and tracked deployments using AWS, Jenkins, Kibana, IBM Workspace, ServiceNow, and Commerce Tools.</li>
+        <li>Investigated customer-reported issues by reading through application and access logs — tracing problems back to connectivity failures, login errors, and checkout errors.</li>
+      </ul>
+      <span class="badge">Star Team Award — Apr 2025, for reliability during a critical high-incident sales period</span>
+    </div>
+
+    <div class="tl-item">
+      <div class="when">JAN 2024 — MAR 2024</div>
+      <h3>Full Stack Developer</h3>
+      <div class="org">ICT Academy · Kerala, India</div>
+      <ul>
+        <li>Built an e-commerce website for selling PCs and custom-built PCs as a short-term freelance engagement.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="when">MAR 2022 — MAY 2022</div>
+      <h3>Digital Marketing Intern</h3>
+      <div class="org">IPSR Solutions Ltd. · India</div>
+      <ul>
+        <li>Supported digital marketing campaigns and social media initiatives during a two-month internship on the Yuva Aatma Nirbhar project.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<br>
+<section id="incidents" class="wrap">
+  <div class="section-head">
+    <h2>Incident highlights</h2>
+    <span class="note">selected cases</span>
+  </div>
+
+  <div class="incident">
+    <div class="incident-head">
+      <h3>Major site breakdown</h3>
+      <span class="sev">RESOLVED</span>
+    </div>
+    <div class="incident-body">
+      <div class="field"><div class="k">Situation</div><div class="v">Customer-facing outage on the production commerce site during Tibin's on-call coverage.</div></div>
+      <div class="field"><div class="k">Approach</div><div class="v">Monitored system health across the stack and coordinated with cross-functional teams to isolate the failure.</div></div>
+      <div class="field"><div class="k">Tools</div><div class="v">Kibana, ServiceNow, AWS, Jenkins</div></div>
+    </div>
+  </div>
+
+  <div class="incident">
+    <div class="incident-head">
+      <h3>Account security incident</h3>
+      <span class="sev">RESOLVED</span>
+    </div>
+    <div class="incident-body">
+      <div class="field"><div class="k">Situation</div><div class="v">Suspected account compromise activity reported on the supported website.</div></div>
+      <div class="field"><div class="k">Approach</div><div class="v">Reviewed logs and access data to scope the incident and support timely resolution alongside the wider team.</div></div>
+      <div class="field"><div class="k">Tools</div><div class="v">ServiceNow, application logs, Kibana</div></div>
+    </div>
+  </div>
+
+  <div class="incident">
+    <div class="incident-head">
+      <h3>Customer error triage</h3>
+      <span class="sev">ONGOING PRACTICE</span>
+    </div>
+    <div class="incident-body">
+      <div class="field"><div class="k">Situation</div><div class="v">Recurring customer reports: unable to connect, login failures, checkout errors.</div></div>
+      <div class="field"><div class="k">Approach</div><div class="v">Traced each report through customer logs to identify whether the root cause sat in connectivity, authentication, or the checkout flow.</div></div>
+      <div class="field"><div class="k">Tools</div><div class="v">Kibana, SQL, DynamoDB, Athena</div></div>
+    </div>
+  </div>
+
+</section>
+<br>
+<section id="skills" class="wrap">
+  <div class="section-head">
+    <h2>Skills</h2>
+    <span class="note">by area</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-cat">
+      <h4>Cloud &amp; DevOps</h4>
+      <div class="chip-row">
+        <span class="chip">AWS</span><span class="chip">Jenkins</span><span class="chip">DynamoDB</span>
+        <span class="chip">Athena</span><span class="chip">Git</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <h4>Monitoring &amp; ITSM</h4>
+      <div class="chip-row">
+        <span class="chip">Kibana</span><span class="chip">ServiceNow</span><span class="chip">IBM Workspace</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <h4>Databases</h4>
+      <div class="chip-row">
+        <span class="chip">SQL</span><span class="chip">MySQL</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <h4>Platforms &amp; tools</h4>
+      <div class="chip-row">
+        <span class="chip">Commerce Tools</span><span class="chip">Postman</span>
+        <span class="chip">Google Analytics</span>
+      </div>
+    </div>
+    <div class="skill-cat" style="grid-column: span 2;">
+      <h4>Programming — working knowledge</h4>
+      <div class="chip-row">
+        <span class="chip">Python</span><span class="chip">PHP</span><span class="chip">Java</span>
+        <span class="chip">Selenium</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<br>
+<section id="certifications" class="wrap">
+  <div class="section-head">
+    <h2>Certifications</h2>
+  </div>
+  <div class="cert-grid">
+    <div class="cert">
+      <h4>Microsoft Office Specialist — Excel 2019 Associate</h4>
+      <div class="issuer">Microsoft / Certiport</div>
+      <div class="date">APR 2023</div>
+    </div>
+      <div class="cert">
+      <h4>Full Stack Development (MERN)</h4>
+      <div class="issuer">ICT Academy</div>
+      <div class="date">Mar 2024</div>
+    </div>
+    <div class="cert">
+      <h4>Introduction to Ethical Hacking</h4>
+      <div class="issuer">Offenso Hackers Academy</div>
+      <div class="date">FEB 2023</div>
+    </div>
+    <div class="cert">
+      <h4>Online Artificial Intelligence Workshop</h4>
+      <div class="issuer">Cozmek LearningStation &amp; TinkerHub KMEA</div>
+      <div class="date">JAN 2023</div>
+    </div>
+    <div class="cert">
+      <h4>PHP for Beginners</h4>
+      <div class="issuer">Great Learning Academy</div>
+      <div class="date">JUL 2023</div>
+    </div>
+    <div class="cert">
+      <h4>Selenium with Python</h4>
+      <div class="issuer">Udemy</div>
+      <div class="date">&nbsp;</div>
+    </div>
+  </div>
+</section>
+<br>
+<section id="education" class="wrap">
+  <div class="section-head">
+    <h2>Education</h2>
+  </div>
+  <div class="edu">
+    <div>
+      <h3>Bachelor of Computer Applications (BCA)</h3>
+      <div class="org">Marian College Kuttikkanam, Kerala, India</div>
+    </div>
+    <div class="when">2021 — 2024</div>
+  </div>
+</section>
+
+<footer id="contact" class="wrap">
+  <div class="foot-inner">
+    <div>Idukki, Kerala, India · English, Malayalam, Tamil, Hindi</div>
+    <div class="links">
+      <a href="mailto:tibinthomas1304@gmail.com">Email</a>
+      <a href="tel:+918138057448">Call</a>
+      <a href="https://github.com/tibinthomas13" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/tibin-thomas-003208234/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+  <br>
+  <br>
+</footer>
+
+</body>
+</html>
